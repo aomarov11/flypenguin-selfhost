@@ -1,0 +1,8 @@
+[build]
+command = "bash build.sh"
+publish = "public"
+
+# Optional: set environment variable to ensure wget is present
+[build.environment]
+# Netlify build image includes wget by default; this is just illustrative
+WGET_VERSION = "present"
