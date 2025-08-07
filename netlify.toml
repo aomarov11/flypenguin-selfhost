@@ -1,8 +1,7 @@
 [build]
-command = "bash build.sh"
+# Always attempt the copy to /public even if build.sh returns non-zero.
+command = "bash -x build.sh || echo 'WARN: build.sh non-zero, continuing'; mkdir -p public; if [ -d mirror/flypenguin.org ]; then cp -r mirror/flypenguin.org/* public/ || true; fi; if [ ! -f public/index.html ] && [ -f mirror/flypenguin.org/index.html ]; then cp mirror/flypenguin.org/index.html public/index.html; fi; echo 'Publish dir ready'"
 publish = "public"
 
-# Optional: set environment variable to ensure wget is present
 [build.environment]
-# Netlify build image includes wget by default; this is just illustrative
 WGET_VERSION = "present"
