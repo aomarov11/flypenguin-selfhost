@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Minimal/defensive crawler. Non-zero is fine; netlify.toml has a fallback copy step.
 set -u
 set -o pipefail
 
@@ -25,5 +24,4 @@ wget \
   --directory-prefix="$MIRROR_DIR" \
   "$ORIGIN" || { echo 'WARN: wget returned non-zero'; exit 8; }
 
-# Optional post-processing could go here, but not required.
 exit 0

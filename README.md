@@ -1,7 +1,12 @@
-# Bulletproof Netlify Deploy (Self-hosted snapshot)
+# Netlify Mirror — Bulletproof + Querystring Fix
 
-This setup **ignores wget 404 exit codes** and performs a **fallback copy** so the
-`public/` folder is always present. It mirrors flypenguin.org and publishes the snapshot.
+Fixes the Netlify deploy error:
+> Invalid filename '...airline-logo.png?v1.1' (no '?' allowed)
 
-- `build.sh` may return `8` (wget 404s). That's OK.
-- `netlify.toml` still assembles `/public` from `mirror/flypenguin.org` and publishes it.
+How it works:
+1) `build.sh` mirrors the site (wget may exit 8; ignored).
+2) `postprocess.sh` copies mirror to `public/`, **renames files with `?`** to the clean name, **rewrites references** in HTML/CSS/JS, localizes Google Fonts if present, and strips Yandex Metrica.
+3) `netlify.toml` runs both steps and publishes `public/`.
+
+Deploy:
+- Push these files to your repo and redeploy.

@@ -1,6 +1,7 @@
 [build]
-# Always attempt the copy to /public even if build.sh returns non-zero.
-command = "bash -x build.sh || echo 'WARN: build.sh non-zero, continuing'; mkdir -p public; if [ -d mirror/flypenguin.org ]; then cp -r mirror/flypenguin.org/* public/ || true; fi; if [ ! -f public/index.html ] && [ -f mirror/flypenguin.org/index.html ]; then cp mirror/flypenguin.org/index.html public/index.html; fi; echo 'Publish dir ready'"
+# Run crawler but don't fail the build if it exits non-zero.
+# Then run postprocess to assemble /public and sanitize filenames/links.
+command = "bash -x build.sh || echo 'WARN: build.sh non-zero, continuing'; bash -x postprocess.sh"
 publish = "public"
 
 [build.environment]
